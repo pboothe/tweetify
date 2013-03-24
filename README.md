@@ -8,6 +8,6 @@ failing that, with a hypen semi-randomly placed).  Only really been tested of
 I'm the author, and I'm putting this code in the public domain.  CC-0 - http://creativecommons.org/publicdomain/zero/1.0/
 
 To use this code, type
-  python3 stanzafy.py < filecontainingthepoem
+    python3 stanzafy.py < filecontainingthepoem
 For example, to turn "Song of Myself" into tweets, type:
-  python3 stanzafy.py < songofmyself.txt
+    python3 stanzafy.py < songofmyself.txt
