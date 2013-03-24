@@ -1,8 +1,26 @@
 #!/usr/bin/env python3
 
+def breakline(line):
+    if len(line) <= 140:
+        yield line
+        return
+
+    pieces = line.split(",")
+    piece = ""
+    for i in range(len(pieces)):
+        if len(pieces[i]) >= 140:
+            print("BAD LINE", line)
+        else:
+            if len(piece + "," + pieces[i]) >= 140:
+                yield piece + ","
+                piece = pieces[i]
+            else:
+                piece = piece + "," + pieces[i]
+    yield piece
+
 def makeTweets(stanza):
     wholething = "\n".join(stanza)
-    if len(wholething) <= 140:
+    if len(wholething) < 140:
         return [ wholething ]
     else:
         tweets = []
@@ -10,16 +28,18 @@ def makeTweets(stanza):
         while i >= 0:
             if i >= 1:
                 tweet = stanza[i] + "\n" + stanza[i-1]
-                if len(tweet) > 140:
-                    tweet = stanza[i-1]
+                if len(tweet) >= 140:
+                    for subtweet in breakline(stanza[i]):
+                        tweets.append(subtweet)
                     i -= 1
+                    
                 else:
+                    tweets.append(tweet)
                     i -= 2
             else:
                 tweet = stanza[0]
                 i -= 1
-
-            tweets.append(tweet)
+                tweets.append(tweet)
         return tweets[::-1]
                 
 
@@ -33,7 +53,7 @@ for line in input:
         for tweet in tweets: 
             f = open("tweets/%05d.txt" % tweetcount, "w") 
             tweetcount += 1
-            print(tweet, file=f)
+            print(tweet, file=f, end="")
         stanza = []
     else:
         if line.startswith(" ") and not line.strip().isdigit():
