@@ -10,6 +10,7 @@ def breakline(line):
     for i in range(len(pieces)):
         if len(pieces[i]) >= 140:
             print("BAD LINE", line)
+            print("FIX THIS CODE IF YOU SEE THIS MESSAGE")
         else:
             if len(piece + "," + pieces[i]) >= 140:
                 yield piece + ","
