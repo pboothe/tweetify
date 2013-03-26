@@ -50,12 +50,13 @@ stanza = []
 tweetcount = 0
 for line in input:
     if line.strip() == "":
-        tweets = makeTweets(stanza)
-        for tweet in tweets: 
-            f = open("tweets/%05d.txt" % tweetcount, "w") 
-            tweetcount += 1
-            print(tweet, file=f, end="")
-        stanza = []
+        if len(stanza) > 0:
+            tweets = makeTweets(stanza)
+            for tweet in tweets: 
+                f = open("tweets/%05d.txt" % tweetcount, "w") 
+                tweetcount += 1
+                print(tweet, file=f, end="")
+            stanza = []
     else:
         if line.startswith(" ") and not line.strip().isdigit():
             stanza[-1] = stanza[-1] + " " + line.strip()
